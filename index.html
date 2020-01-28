@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@saithodev/cli-base - v1.0.0</title>
+	<title>@saithodev/cli-base - v2.0.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">@saithodev/cli-base - v1.0.0</a>
+					<a href="index.html" class="title">@saithodev/cli-base - v2.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> @saithodev/cli-base - v1.0.0</h1>
+			<h1> @saithodev/cli-base - v2.0.0</h1>
 		</div>
 	</div>
 </header>
@@ -64,46 +64,40 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#my-npm-package" id="my-npm-package" style="color: inherit; text-decoration: none;">
-					<h1>my-npm-package</h1>
+				<a href="#saithodevcli-base" id="saithodevcli-base" style="color: inherit; text-decoration: none;">
+					<h1>@saithodev/cli-base</h1>
 				</a>
-				<p><a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
+				<p><a href="https://travis-ci.com/saitho/node-cli-base"><img src="https://travis-ci.com/saitho/node-cli-base.svg?branch=master" alt="Build Status"></a>
+					<a href="https://www.npmjs.com/package/@saithodev/cli-base"><img src="https://img.shields.io/npm/v/@saithodev/cli-base.svg" alt="npm version"></a>
+					<a href="https://sonarcloud.io/dashboard?id=node-cli-base"><img src="https://sonarcloud.io/api/project_badges/measure?project=node-cli-base&metric=coverage" alt="Coverage"></a>
+					<a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
 				<a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a></p>
-				<p>This is a template for a new NPM package.</p>
-				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
-					<h2>Features</h2>
+				<p>This package provides a basic API for creating CLI-based packages.</p>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h2>Example</h2>
 				</a>
-				<ul>
-					<li><strong>PNPM</strong> as more efficient Node dependency manager</li>
-					<li><strong>TypeScript</strong></li>
-					<li>Tests via <strong>jest</strong></li>
-					<li>Generated code documentation via <strong>TypeDoc</strong></li>
-					<li><strong>SonarCloud</strong> integration</li>
-					<li><strong><a href="https://github.com/semantic-release/semantic-release">Semantic Release</a></strong> for fast releases</li>
-					<li><strong>Commitizen</strong> for consistent commits</li>
-					<li>CI configurations for <strong>TravisCI</strong> and <strong>Drone CI</strong></li>
-				</ul>
-				<a href="#using-this-template" id="using-this-template" style="color: inherit; text-decoration: none;">
-					<h2>Using this template</h2>
-				</a>
-				<p>If you want to use this template as basis of a new project, please make sure to do the following:</p>
-				<ol>
-					<li>Adjust package.json (package name, description, keywords, repository url)</li>
-					<li>Copy the CI configuration you want to use from .ci folder into the project root</li>
-					<li>Set <code>sonar.organization</code> in sonar-project.properties and <code>sonarcloud.organization</code> in TravisCI configuration (if you&#39;re using it)</li>
-					<li>If this package should be private, remove <em>.npmrc</em> file</li>
-					<li>Remove sample files or adjust them</li>
-				</ol>
-				<a href="#setting-up-ci" id="setting-up-ci" style="color: inherit; text-decoration: none;">
-					<h2>Setting up CI</h2>
-				</a>
-				<p>Make sure to create the following environment variables:</p>
-				<ul>
-					<li>SONAR_TOKEN: access token for SonarCloud (required for code analysis)</li>
-					<li>NPM_TOKEN: access token for NPM (required for publishing packages)</li>
-					<li>GH_TOKEN: access token for GitHub (required for publishing releases)</li>
-				</ul>
-				<p>If you are using TravisCI, you can use <strong><a href="https://github.com/semantic-release/cli">semantic-release-cli</a></strong> for setting up the NPM and GitHub tokens.</p>
+				<p>The following example will add two commands &quot;help&quot; and &quot;version&quot;.</p>
+				<p>index.ts</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {Cli, HelpCommand, VersionCommand} <span class="hljs-keyword">from</span> <span class="hljs-string">"@saithodev/cli-base"</span>;
+
+<span class="hljs-keyword">new</span> Cli(<span class="hljs-string">'typo3-extension-release'</span>)
+    .setOptions({
+        <span class="hljs-string">'dry-run'</span>: {
+            <span class="hljs-keyword">type</span>: <span class="hljs-string">'boolean'</span>,
+            <span class="hljs-keyword">default</span>: <span class="hljs-literal">false</span>,
+            alias: <span class="hljs-string">'d'</span>,
+            description: <span class="hljs-string">'Simulates changes without writing them'</span>
+        }
+    })
+    .addCommand(<span class="hljs-keyword">new</span> HelpCommand()) <span class="hljs-comment">// adds help command</span>
+    .addCommand(<span class="hljs-keyword">new</span> VersionCommand()) <span class="hljs-comment">// adds version command</span>
+    .run()
+    .catch(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> {
+        <span class="hljs-built_in">console</span>.error(error);
+        process.exit(<span class="hljs-number">1</span>);
+    });</code></pre>
+				<p>Compile sources and test it with <code>dist/index.js help</code> and <code>dist/index.js version</code>.</p>
+				<p>For details on how to implement custom commands, take a closer look at the example and the command classes used there.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -113,34 +107,52 @@
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_abstractclicommand_.html">&quot;<wbr>Abstract<wbr>Cli<wbr>Command&quot;</a>
+						<a href="modules/_commands_helpcommand_.html">&quot;commands/<wbr>Help<wbr>Command&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_cli_.html">&quot;<wbr>Cli&quot;</a>
+						<a href="modules/_commands_versioncommand_.html">&quot;commands/<wbr>Version<wbr>Command&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_clierrorresponse_.html">&quot;<wbr>Cli<wbr>Error<wbr>Response&quot;</a>
+						<a href="modules/_commands_index_.html">&quot;commands/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_clisuccessresponse_.html">&quot;<wbr>Cli<wbr>Success<wbr>Response&quot;</a>
+						<a href="modules/_core_abstractcommand_.html">&quot;core/<wbr>Abstract<wbr>Command&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_iclicommand_.html">&quot;ICli<wbr>Command&quot;</a>
+						<a href="modules/_core_cli_.html">&quot;core/<wbr>Cli&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_iclicommandexample_.html">&quot;ICli<wbr>Command<wbr>Example&quot;</a>
+						<a href="modules/_core_errorresponse_.html">&quot;core/<wbr>Error<wbr>Response&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_iclirequest_.html">&quot;ICli<wbr>Request&quot;</a>
+						<a href="modules/_core_successresponse_.html">&quot;core/<wbr>Success<wbr>Response&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_icliresponse_.html">&quot;ICli<wbr>Response&quot;</a>
+						<a href="modules/_core_toptions_.html">&quot;core/TOptions&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_icommandinfos_.html">&quot;ICommand<wbr>Infos&quot;</a>
+						<a href="modules/_core_index_.html">&quot;core/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_tclioptions_.html">&quot;TCli<wbr>Options&quot;</a>
+						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_icli_.html">&quot;interfaces/ICli&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_icommand_.html">&quot;interfaces/ICommand&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_icommandinfos_.html">&quot;interfaces/ICommand<wbr>Infos&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_irequest_.html">&quot;interfaces/IRequest&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_iresponse_.html">&quot;interfaces/IResponse&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_index_.html">&quot;interfaces/index&quot;</a>
 					</li>
 				</ul>
 			</nav>
