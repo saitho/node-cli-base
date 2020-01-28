@@ -1,39 +1,38 @@
-# my-npm-package
+# @saithodev/cli-base
 
 [![Build Status](https://travis-ci.com/saitho/node-cli-base.svg?branch=master)](https://travis-ci.com/saitho/node-cli-base)
 [![npm version](https://img.shields.io/npm/v/@saithodev/cli-base.svg)](https://www.npmjs.com/package/@saithodev/cli-base)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-This is a template for a new NPM package.
+This package provides a basic API for creating CLI-based packages.
 
-## Features
+## Example
 
-* **PNPM** as more efficient Node dependency manager
-* **TypeScript**
-* Tests via **jest**
-* Generated code documentation via **TypeDoc**
-* **SonarCloud** integration
-* **[Semantic Release](https://github.com/semantic-release/semantic-release)** for fast releases
-* **Commitizen** for consistent commits
-* CI configurations for **TravisCI** and **Drone CI**
+The following example will add two commands "help" and "version".
 
-## Using this template
+index.ts
+```typescript
+import {Cli, HelpCommand, VersionCommand} from "@saithodev/cli-base";
 
-If you want to use this template as basis of a new project, please make sure to do the following:
+new Cli('typo3-extension-release')
+    .setOptions({
+        'dry-run': {
+            type: 'boolean',
+            default: false,
+            alias: 'd',
+            description: 'Simulates changes without writing them'
+        }
+    })
+    .addCommand(new HelpCommand()) // adds help command
+    .addCommand(new VersionCommand()) // adds version command
+    .run()
+    .catch((error) => {
+        console.error(error);
+        process.exit(1);
+    });
+```
 
-1. Adjust package.json (package name, description, keywords, repository url)
-2. Copy the CI configuration you want to use from .ci folder into the project root
-3. Set `sonar.organization` in sonar-project.properties and `sonarcloud.organization` in TravisCI configuration (if you're using it)
-4. If this package should be private, remove _.npmrc_ file
-5. Remove sample files or adjust them
+Compile sources and test it with `dist/index.js help` and `dist/index.js version`.
 
-## Setting up CI
-
-Make sure to create the following environment variables:
-
-* SONAR_TOKEN: access token for SonarCloud (required for code analysis)
-* NPM_TOKEN: access token for NPM (required for publishing packages)
-* GH_TOKEN: access token for GitHub (required for publishing releases)
-
-If you are using TravisCI, you can use **[semantic-release-cli](https://github.com/semantic-release/cli)** for setting up the NPM and GitHub tokens.
+For details on how to implement custom commands, take a closer look at the example and the command classes used there.
