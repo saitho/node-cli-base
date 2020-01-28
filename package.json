@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "author": "Mario Lubenka",
   "license": "MIT",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "keywords": [
     "cli",
     "commands"

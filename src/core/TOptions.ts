@@ -1,8 +1,8 @@
 import {Opts as MinimistOptions} from "minimist";
-import {BaseOption, OptionType} from "minimist-options";
+import {BaseOption as MinimalistBaseOption, OptionType} from "minimist-options";
 
-interface CliBaseOption<TypeOptionType extends OptionType, DefaultOptionType>
-    extends BaseOption<TypeOptionType, DefaultOptionType> {
+interface BaseOption<TypeOptionType extends OptionType, DefaultOptionType>
+    extends MinimalistBaseOption<TypeOptionType, DefaultOptionType> {
     readonly description: string;
 }
 
@@ -12,11 +12,11 @@ type MinimistOption = NonNullable<
     | MinimistOptions['--']
     >;
 
-export type CliOptions<ArrayOptionContentType = unknown> = {
+export type Options<ArrayOptionContentType = unknown> = {
     [key: string]:
         | OptionType
-        | CliBaseOption<'string', string>
-        | CliBaseOption<'boolean', boolean>
+        | BaseOption<'string', string>
+        | BaseOption<'boolean', boolean>
         | BaseOption<'number', number>
         | BaseOption<'array', ReadonlyArray<ArrayOptionContentType>>
         | MinimistOption;  // Workaround for https://github.com/microsoft/TypeScript/issues/17867

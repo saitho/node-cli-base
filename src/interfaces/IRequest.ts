@@ -1,6 +1,6 @@
 import {Options as MinimistOptions} from "minimist-options";
 
-export interface ICliRequest {
+export interface IRequest {
     input: string[];
     flags: MinimistOptions;
 }

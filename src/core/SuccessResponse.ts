@@ -1,6 +1,6 @@
-import {ICliResponse} from "./ICliResponse";
+import {IResponse} from "../interfaces";
 
-export class CliSuccessResponse implements ICliResponse {
+export class SuccessResponse implements IResponse {
     constructor(message: string = null) {
         this.message = message;
     }

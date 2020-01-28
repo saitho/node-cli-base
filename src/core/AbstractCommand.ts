@@ -1,10 +1,6 @@
-import {ICliCommand} from "./ICliCommand";
-import {ICliRequest} from "./ICliRequest";
-import {ICliResponse} from "./ICliResponse";
-import {Cli} from "./Cli";
-import {ICommandInfos} from "./ICommandInfos";
+import {ICli, ICommand, ICommandInfos, IRequest, IResponse} from "../interfaces";
 
-export abstract class AbstractCliCommand implements ICliCommand {
+export abstract class AbstractCommand implements ICommand {
     protected abstract commandName: string;
     protected abstract commandDescription: string;
     protected arguments = [];
@@ -16,7 +12,7 @@ export abstract class AbstractCliCommand implements ICliCommand {
         };
     }
 
-    canHandleRequest(request: ICliRequest): boolean {
+    canHandleRequest(request: IRequest): boolean {
         if (request.input.length == 0) {
             return false;
         }
@@ -35,9 +31,9 @@ export abstract class AbstractCliCommand implements ICliCommand {
         return true;
     }
 
-    protected abstract process(request: ICliRequest, cli: Cli): Promise<ICliResponse>;
+    protected abstract process(request: IRequest, cli: ICli): Promise<IResponse>;
 
-    handleRequest(request: ICliRequest, cli: Cli): Promise<ICliResponse> {
+    handleRequest(request: IRequest, cli: ICli): Promise<IResponse> {
         return this.process(request, cli);
     }
 }

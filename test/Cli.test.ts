@@ -1,17 +1,13 @@
-import {Cli} from "../src/Cli";
-import {ICliResponse} from "../src/ICliResponse";
-import {ICliRequest} from "../src/ICliRequest";
-import {AbstractCliCommand} from "../src/AbstractCliCommand";
-import {CliSuccessResponse} from "../src/CliSuccessResponse";
+import {Cli, IResponse, IRequest, AbstractCommand, SuccessResponse} from "../src";
 
 describe("Cli", () => {
     it("register command and run it", async () => {
         const cli = new Cli('typo3-extension-release');
-        cli.addCommand(new class extends AbstractCliCommand {
+        cli.addCommand(new class extends AbstractCommand {
             commandName = 'test';
             commandDescription = 'just a test';
-            protected async process(request: ICliRequest, cli: Cli): Promise<ICliResponse> {
-                return new CliSuccessResponse("Test successful");
+            protected async process(request: IRequest, cli: Cli): Promise<IResponse> {
+                return new SuccessResponse("Test successful");
             }
         });
         process.argv = [
@@ -26,11 +22,11 @@ describe("Cli", () => {
 
     it("error when command is not found", async () => {
         const cli = new Cli('typo3-extension-release');
-        cli.addCommand(new class extends AbstractCliCommand {
+        cli.addCommand(new class extends AbstractCommand {
             commandName = 'test';
             commandDescription = 'just a test';
-            protected async process(request: ICliRequest, cli: Cli): Promise<ICliResponse> {
-                return new CliSuccessResponse("Test successful");
+            protected async process(request: IRequest, cli: Cli): Promise<IResponse> {
+                return new SuccessResponse("Test successful");
             }
         });
         process.argv = [
@@ -46,11 +42,11 @@ describe("Cli", () => {
 
     it("error when multiple commands match", async () => {
         const cli = new Cli('typo3-extension-release');
-        const testCommand = new class extends AbstractCliCommand {
+        const testCommand = new class extends AbstractCommand {
             commandName = 'test';
             commandDescription = 'just a test';
-            protected async process(request: ICliRequest, cli: Cli): Promise<ICliResponse> {
-                return new CliSuccessResponse("Test successful");
+            protected async process(request: IRequest, cli: Cli): Promise<IResponse> {
+                return new SuccessResponse("Test successful");
             }
         };
         cli.addCommand(testCommand);

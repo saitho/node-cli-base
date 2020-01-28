@@ -1,18 +1,14 @@
-import {ICliCommand} from "./ICliCommand";
-import {ICliResponse} from "./ICliResponse";
-import {CliOptions} from "./TCliOptions";
-import {CliErrorResponse} from "./CliErrorResponse";
-import {ICommandInfos} from "./ICommandInfos";
+import {ICli, ICommand, ICommandInfos, IRequest, IResponse} from "../interfaces";
+import {Options, ErrorResponse} from ".";
 import * as buildOptions from 'minimist-options';
 import * as yargsParser from "yargs-parser";
 import * as path from 'path';
 import * as readPkg from 'read-pkg-up';
-import {ICliRequest} from "./ICliRequest";
 
-export class Cli {
+export class Cli implements ICli {
     protected binaryName: string = '';
-    protected options: CliOptions;
-    protected commands: ICliCommand[] = [];
+    protected options: Options;
+    protected commands: ICommand[] = [];
 
     constructor(binaryName: string) {
         this.binaryName = binaryName;
@@ -23,19 +19,19 @@ export class Cli {
     }
 
     public getAvailableCommands(): ICommandInfos[] {
-        return this.commands.map((command: ICliCommand) => command.getInfos());
+        return this.commands.map((command: ICommand) => command.getInfos());
     }
 
-    public setOptions(options: CliOptions): this {
+    public setOptions(options: Options): this {
         this.options = options;
         return this;
     }
 
-    public getOptions(): CliOptions {
+    public getOptions(): Options {
         return this.options;
     }
 
-    public addCommand(command: ICliCommand): this {
+    public addCommand(command: ICommand): this {
         this.commands.push(command);
         return this;
     }
@@ -47,7 +43,7 @@ export class Cli {
         }).packageJson;
     }
 
-    protected buildRequest(): ICliRequest {
+    protected buildRequest(): IRequest {
         const minimistoptions = buildOptions.default({
             arguments: 'string',
             ...this.options
@@ -69,21 +65,21 @@ export class Cli {
         const pkg = this.getPackageInfo();
         process.title = pkg.bin ? Object.keys(pkg.bin)[0] : pkg.name;
 
-        let response: ICliResponse;
+        let response: IResponse;
         const command = this.commands.filter((command) => command.canHandleRequest(request));
         if (command.length == 0) {
-            response = new CliErrorResponse(`The requested command "${request.input[0]}" was not found.`);
+            response = new ErrorResponse(`The requested command "${request.input[0]}" was not found.`);
         } else if (command.length > 1) {
-            response = new CliErrorResponse('Multiple commands matching this call were found.');
+            response = new ErrorResponse('Multiple commands matching this call were found.');
         } else {
             try {
                 response = await command[0].handleRequest(request, this);
             } catch (e) {
-                response = new CliErrorResponse(e);
+                response = new ErrorResponse(e);
             }
         }
 
-        if (response instanceof CliErrorResponse) {
+        if (response instanceof ErrorResponse) {
             console.error('Command execution failed with the following error:\n\n' + response.message);
         } else {
             console.log(response.message || 'Command execution finished successfully.');
