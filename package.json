@@ -1,15 +1,16 @@
 {
-  "name": "my-npm-project",
-  "description": "",
-  "version": "1.0.0-dev",
-  "author": "",
+  "name": "@saithodev/cli-base",
+  "description": "Base for a CLI-based NPM package",
+  "version": "0.0.0-development",
+  "author": "Mario Lubenka",
   "license": "MIT",
   "keywords": [
+    "cli",
+    "commands"
   ],
-  "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/saitho/nodejs-package-template.git"
+    "url": "https://github.com/saitho/node-cli-base"
   },
   "scripts": {
     "build": "tsc",
@@ -18,13 +19,20 @@
     "semantic-release": "semantic-release",
     "commit": "git-cz"
   },
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "minimist-options": "^4.0.2",
+    "read-pkg-up": "^7.0.1",
+    "yargs-parser": "^16.1.0"
+  },
   "devDependencies": {
     "@saithodev/semantic-release-sharedconf-npm": "^2.0.2",
     "@types/jest": "^24.0.23",
+    "@types/node": "^13.5.1",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "jest": "^24.9.0",
-    "semantic-release": "^16.0.1",
+    "semantic-release": "^17.0.1",
     "ts-jest": "^24.2.0",
     "ts-mockito": "^2.5.0",
     "typedoc": "^0.15.8",
