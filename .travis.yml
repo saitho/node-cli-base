@@ -31,4 +31,5 @@ jobs:
         provider: script
         skip_cleanup: true
         script:
+          - pnpm run build
           - pnpx semantic-release
