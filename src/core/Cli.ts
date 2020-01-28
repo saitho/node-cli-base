@@ -66,14 +66,14 @@ export class Cli implements ICli {
         process.title = pkg.bin ? Object.keys(pkg.bin)[0] : pkg.name;
 
         let response: IResponse;
-        const command = this.commands.filter((command) => command.canHandleRequest(request));
-        if (command.length == 0) {
+        const matchingCommands = this.commands.filter((command) => command.canHandleRequest(request));
+        if (matchingCommands.length == 0) {
             response = new ErrorResponse(`The requested command "${request.input[0]}" was not found.`);
-        } else if (command.length > 1) {
+        } else if (matchingCommands.length > 1) {
             response = new ErrorResponse('Multiple commands matching this call were found.');
         } else {
             try {
-                response = await command[0].handleRequest(request, this);
+                response = await matchingCommands[0].handleRequest(request, this);
             } catch (e) {
                 response = new ErrorResponse(e);
             }
