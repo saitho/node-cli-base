@@ -5,6 +5,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=node-cli-base&metric=coverage)](https://sonarcloud.io/dashboard?id=node-cli-base)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsaitho%2Fnode-cli-base.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsaitho%2Fnode-cli-base?ref=badge_shield)
 
 This package provides a basic API for creating CLI-based packages.
 
@@ -37,3 +38,6 @@ new Cli('typo3-extension-release')
 Compile sources and test it with `dist/index.js help` and `dist/index.js version`.
 
 For details on how to implement custom commands, take a closer look at the example and the command classes used there.
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsaitho%2Fnode-cli-base.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsaitho%2Fnode-cli-base?ref=badge_large)
