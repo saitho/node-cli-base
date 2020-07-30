@@ -1,6 +1,6 @@
 import {mock, instance, when} from 'ts-mockito';
 import {Cli, SuccessResponse} from "../../src";
-import {HelpCommand} from "../../src/commands/HelpCommand";
+import {HelpCommand} from "../../src/commands";
 
 describe("HelpCommand", () => {
     it("shows available commands and options", async () => {

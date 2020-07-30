@@ -1,5 +1,5 @@
 import {Cli, SuccessResponse} from "../../src";
-import {VersionCommand} from "../../src/commands/VersionCommand";
+import {VersionCommand} from "../../src/commands";
 import {mock, instance, when} from 'ts-mockito';
 
 describe("VersionCommand", () => {
