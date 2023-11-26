@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/saitho/node-cli-base/compare/v2.1.4...v2.2.0) (2023-11-26)
+
+
+### Features
+
+* introduce Cli EventEmitter ([ab43fa7](https://github.com/saitho/node-cli-base/commit/ab43fa79be1237577d3e333cea802b88081f4151))
+
 ## [2.1.4](https://github.com/saitho/node-cli-base/compare/v2.1.3...v2.1.4) (2023-11-26)
 
 
