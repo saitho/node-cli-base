@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "docs:build": "typedoc --out ./docs --mode modules --tsconfig ./tsconfig.json ./src/ && touch ./docs/.nojekyll",
+    "docs:build": "typedoc --out ./docs --tsconfig ./tsconfig.json ./src/ && touch ./docs/.nojekyll",
     "test": "jest --detectOpenHandles --coverage --verbose",
     "semantic-release": "semantic-release",
     "commit": "git-cz"
