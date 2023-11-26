@@ -9,3 +9,6 @@ jest.config.cjs
 .travis.yml
 coverage
 sonar-project.properties
+release/
+.releaserc.json
+.github/
