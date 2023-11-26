@@ -5,8 +5,9 @@ import * as yargsParser from "yargs-parser";
 import * as path from 'path';
 import {PackageInfo} from "../interfaces/ICli";
 import * as fs from "fs";
+import {EventEmitter} from "events";
 
-function findPackageJson(startDir: string): string|null {
+function findPackageJson(startDir: string|null): string|null {
     let dir = path.resolve(startDir || process.cwd());
     do {
         const pkgfile = path.join(dir, "package.json");
@@ -24,9 +25,15 @@ export class Cli implements ICli {
     protected binaryName: string = '';
     protected options: Options;
     protected commands: ICommand[] = [];
+    protected eventEmitter = new EventEmitter();
 
     constructor(binaryName: string) {
         this.binaryName = binaryName;
+    }
+
+    getEventEmitter(): EventEmitter
+    {
+        return this.eventEmitter;
     }
 
     public getBinaryName(): string {
@@ -52,12 +59,14 @@ export class Cli implements ICli {
     }
 
     public getPackageInfo(): PackageInfo|null {
-        const packageJson = findPackageJson(module.parent.filename)
-        if (!packageJson) {
-            return null
+        const parentFile: string|null = module.parent?.filename
+        let info = null
+        const packageJson = findPackageJson(parentFile)
+        if (packageJson) {
+            info = JSON.parse(fs.readFileSync(packageJson, 'utf8')) || null
         }
-        const info = JSON.parse(fs.readFileSync(packageJson, 'utf8'))
-        if (info === undefined) {
+        this.eventEmitter.emit('cli:package-info:modify', info)
+        if (!info) {
             return null;
         }
         return {
