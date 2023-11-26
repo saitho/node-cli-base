@@ -19,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "github:saitho/node-cli-base"
+    "url": "https://github.com/saitho/node-cli-base"
   },
   "scripts": {
     "build": "tsc",
