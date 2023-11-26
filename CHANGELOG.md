@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/saitho/node-cli-base/compare/v2.1.1...v2.1.2) (2023-11-26)
+
+
+### Bug Fixes
+
+* update package repository URL ([d2f4aae](https://github.com/saitho/node-cli-base/commit/d2f4aae8f80fcdfc6d74c917fee4c82e8cab3626))
+
 ## [2.1.1](https://github.com/saitho/node-cli-base/compare/v2.1.0...v2.1.1) (2023-11-26)
 
 

@@ -1,7 +1,7 @@
 {
   "name": "@saithodev/cli-base",
   "description": "Base for a CLI-based NPM package",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": "Mario Lubenka",
   "license": "MIT",
   "type": "module",
