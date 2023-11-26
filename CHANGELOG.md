@@ -1,3 +1,11 @@
+## [2.1.3](https://github.com/saitho/node-cli-base/compare/v2.1.2...v2.1.3) (2023-11-26)
+
+
+### Bug Fixes
+
+* add missing typings export ([0e4aca3](https://github.com/saitho/node-cli-base/commit/0e4aca33aca1f5e217e7da9393a32beb111e62ae))
+* update package repository URL ([9c03c18](https://github.com/saitho/node-cli-base/commit/9c03c1876c961f8bb19a6a7798a023a4c4ebbc1c))
+
 ## [2.1.2](https://github.com/saitho/node-cli-base/compare/v2.1.1...v2.1.2) (2023-11-26)
 
 
