@@ -1,8 +1,16 @@
 import {ICommandInfos} from "./ICommandInfos";
-import * as readPkg from 'read-pkg-up';
+import {Options} from "../core";
+
+export type PackageInfo = {
+    name: string;
+    description: string;
+    version: string;
+    bin: string | Partial<Record<string, string>>;
+}
 
 export interface ICli {
     getBinaryName(): string;
     getAvailableCommands(): ICommandInfos[];
-    getPackageInfo(): readPkg.PackageJson;
+    getPackageInfo(): PackageInfo|null;
+    getOptions(): Options;
 }

@@ -1,10 +1,10 @@
-import {Cli, AbstractCommand, IRequest, IResponse, SuccessResponse} from "..";
+import {AbstractCommand, IRequest, IResponse, SuccessResponse, ICli} from "..";
 
 export class HelpCommand extends AbstractCommand {
     commandName = 'help';
     commandDescription = 'Shows help (this page)';
 
-    protected async process(request: IRequest, cli: Cli): Promise<IResponse> {
+    protected async process(request: IRequest, cli: ICli): Promise<IResponse> {
         let helpText = `${cli.getPackageInfo().description}
 
   Usage
@@ -33,7 +33,7 @@ ${this.listCommands(cli)}`;
         return new SuccessResponse(helpText);
     }
 
-    protected listCommands(cli: Cli) {
+    protected listCommands(cli: ICli) {
         let text = '';
         for (const {name, description} of cli.getAvailableCommands()) {
             text += '   ' + name + ': ' + description + '\n';

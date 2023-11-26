@@ -5,7 +5,7 @@ test/*
 tsconfig.json
 *.iml
 .idea
-jest.config.js
+jest.config.cjs
 .travis.yml
 coverage
 sonar-project.properties

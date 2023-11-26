@@ -1,13 +1,15 @@
 import {mock, instance, when} from 'ts-mockito';
-import {Cli, SuccessResponse} from "../../src";
-import {HelpCommand} from "../../src/commands";
+import {Cli, SuccessResponse, HelpCommand} from "../../src";
 
 describe("HelpCommand", () => {
     it("shows available commands and options", async () => {
         const mockCli = mock(Cli);
         when(mockCli.getBinaryName()).thenReturn('test-binary');
         when(mockCli.getPackageInfo()).thenReturn({
-            description: 'Package-description'
+            description: 'Package-description',
+            version: '',
+            name: '',
+            bin: ''
         });
         when(mockCli.getAvailableCommands()).thenReturn([
             {name: 'test1', description: 'First test command'},
@@ -55,7 +57,10 @@ describe("HelpCommand", () => {
         const mockCli = mock(Cli);
         when(mockCli.getBinaryName()).thenReturn('test-binary');
         when(mockCli.getPackageInfo()).thenReturn({
-            description: 'Package-description'
+            description: 'Package-description',
+            version: '',
+            name: '',
+            bin: ''
         });
         when(mockCli.getAvailableCommands()).thenReturn([
             {name: 'test1', description: 'First test command'},

@@ -3,7 +3,22 @@ import {Options, ErrorResponse} from ".";
 import * as buildOptions from 'minimist-options';
 import * as yargsParser from "yargs-parser";
 import * as path from 'path';
-import * as readPkg from 'read-pkg-up';
+import {PackageInfo} from "../interfaces/ICli";
+import * as fs from "fs";
+
+function findPackageJson(startDir: string): string|null {
+    let dir = path.resolve(startDir || process.cwd());
+    do {
+        const pkgfile = path.join(dir, "package.json");
+
+        if (!fs.existsSync(pkgfile)) {
+            dir = path.join(dir, "..");
+            continue;
+        }
+        return pkgfile;
+    } while (dir !== path.resolve(dir, ".."));
+    return null;
+}
 
 export class Cli implements ICli {
     protected binaryName: string = '';
@@ -36,11 +51,21 @@ export class Cli implements ICli {
         return this;
     }
 
-    public getPackageInfo(): readPkg.PackageJson {
-        return readPkg.sync({
-            cwd: path.dirname(module.parent.filename),
-            normalize: false
-        }).packageJson;
+    public getPackageInfo(): PackageInfo|null {
+        const packageJson = findPackageJson(module.parent.filename)
+        if (!packageJson) {
+            return null
+        }
+        const info = JSON.parse(fs.readFileSync(packageJson, 'utf8'))
+        if (info === undefined) {
+            return null;
+        }
+        return {
+            name: info.name,
+            description: info.description,
+            version: info.version,
+            bin: info.bin
+        };
     }
 
     protected buildRequest(): IRequest {
@@ -48,9 +73,10 @@ export class Cli implements ICli {
             arguments: 'string',
             ...this.options
         });
+        // @ts-ignore
         const argv = yargsParser(process.argv.slice(2), minimistoptions);
 
-        const input = argv._;
+        const input = argv._ as string[];
         delete argv._;
 
         return {
@@ -63,7 +89,7 @@ export class Cli implements ICli {
         const request = this.buildRequest();
 
         const pkg = this.getPackageInfo();
-        process.title = pkg.bin ? Object.keys(pkg.bin)[0] : pkg.name;
+        process.title = pkg?.bin ? Object.keys(pkg.bin)[0] : pkg?.name;
 
         let response: IResponse;
         const matchingCommands = this.commands.filter((command) => command.canHandleRequest(request));
