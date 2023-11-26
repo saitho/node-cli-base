@@ -1,6 +1,6 @@
 # @saithodev/cli-base
 
-[![Build Status](https://github.com/saitho/node-cli-base/actions/workflows/test.yml)](https://github.com/saitho/node-cli-base/actions/workflows/test.yml/badge.svg)
+[![Build Status](https://github.com/saitho/node-cli-base/actions/workflows/test.yml/badge.svg)](https://github.com/saitho/node-cli-base/actions/workflows/test.yml)
 [![npm version](https://img.shields.io/npm/v/@saithodev/cli-base.svg)](https://www.npmjs.com/package/@saithodev/cli-base)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=saitho_node-cli-base&metric=coverage)](https://sonarcloud.io/dashboard?id=node-cli-base)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
