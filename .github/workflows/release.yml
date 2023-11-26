@@ -26,7 +26,7 @@ jobs:
       - run: mkdir -p docs
       - name: Semantic Release
         id: semrel
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
