@@ -11,10 +11,15 @@ jobs:
         node: [ 18 ]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          cache: 'pnpm'
           node-version: ${{ matrix.node }}
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
       - run: pnpm install
       - run: pnpm test
   sonar:
