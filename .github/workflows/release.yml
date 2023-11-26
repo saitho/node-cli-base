@@ -23,6 +23,7 @@ jobs:
           version: 8
           run_install: false
       - run: pnpm install
+      - run: pnpm build
       - run: mkdir -p docs
       - name: Semantic Release
         id: semrel
