@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/saitho/node-cli-base/compare/v2.1.0...v2.1.1) (2023-11-26)
+
+
+### Bug Fixes
+
+* add dist to release ([29b7529](https://github.com/saitho/node-cli-base/commit/29b7529fb71e35070ee0917e396f41e786184476))
+
 # [2.1.0](https://github.com/saitho/node-cli-base/compare/v2.0.2...v2.1.0) (2023-11-26)
 
 
