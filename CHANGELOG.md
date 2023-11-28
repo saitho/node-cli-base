@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/saitho/node-cli-base/compare/v2.3.0...v2.3.1) (2023-11-28)
+
+
+### Bug Fixes
+
+* export decorators ([8f174d6](https://github.com/saitho/node-cli-base/commit/8f174d613f39c6e7d44428607583dbc3d5754d37))
+
 # [2.3.0](https://github.com/saitho/node-cli-base/compare/v2.2.0...v2.3.0) (2023-11-28)
 
 
