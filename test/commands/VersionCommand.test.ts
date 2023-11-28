@@ -1,5 +1,6 @@
 import {Cli, SuccessResponse, VersionCommand} from "../../src";
 import {mock, instance, when} from 'ts-mockito';
+import {Request} from "../../src/core/Request";
 
 describe("VersionCommand", () => {
     it("shows version from package.json", async () => {
@@ -12,10 +13,8 @@ describe("VersionCommand", () => {
         });
 
         const command = new VersionCommand();
-        const response = await command.handleRequest({
-            input: ['version'],
-            flags: null
-        }, instance(mockCli));
+        const request = new Request(['version'], null)
+        const response = await command.handleRequest(request, instance(mockCli));
         expect(response).toBeInstanceOf(SuccessResponse);
         expect(response.message).toEqual('1.2.3-test');
     });
