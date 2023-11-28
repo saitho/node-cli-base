@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/saitho/node-cli-base/compare/v2.2.0...v2.3.0) (2023-11-28)
+
+
+### Features
+
+* command decorators ([489da4a](https://github.com/saitho/node-cli-base/commit/489da4a3a701443fa169f19a418633d0a832d5b4))
+
 # [2.2.0](https://github.com/saitho/node-cli-base/compare/v2.1.4...v2.2.0) (2023-11-26)
 
 
