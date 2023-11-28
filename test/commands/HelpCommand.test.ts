@@ -1,5 +1,6 @@
 import {mock, instance, when} from 'ts-mockito';
 import {Cli, SuccessResponse, HelpCommand} from "../../src";
+import {Request} from "../../src/core/Request";
 
 describe("HelpCommand", () => {
     it("shows available commands and options", async () => {
@@ -30,10 +31,8 @@ describe("HelpCommand", () => {
         });
 
         const command = new HelpCommand();
-        const response = await command.handleRequest({
-            input: ['help'],
-            flags: null
-        }, instance(mockCli));
+        const request = new Request(['help'], null)
+        const response = await command.handleRequest(request, instance(mockCli));
 
         const expectedOutput = `Package-description
 
@@ -69,10 +68,8 @@ describe("HelpCommand", () => {
         when(mockCli.getOptions()).thenReturn({});
 
         const command = new HelpCommand();
-        const response = await command.handleRequest({
-            input: ['help'],
-            flags: null
-        }, instance(mockCli));
+        const request = new Request(['help'], null)
+        const response = await command.handleRequest(request, instance(mockCli));
 
         const expectedOutput = `Package-description
 

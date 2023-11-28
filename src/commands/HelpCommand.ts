@@ -1,10 +1,10 @@
-import {AbstractCommand, IRequest, IResponse, SuccessResponse, ICli} from "..";
+import {IRequest, IResponse, SuccessResponse, ICli, ICommandProcess} from "..";
+import {command} from "../core/Decorators";
+import {Command} from "../core/Command";
 
-export class HelpCommand extends AbstractCommand {
-    commandName = 'help';
-    commandDescription = 'Shows help (this page)';
-
-    protected async process(request: IRequest, cli: ICli): Promise<IResponse> {
+@command('help', 'Shows help (this page)')
+export class HelpCommand extends Command implements ICommandProcess {
+    public async process(request: IRequest, cli: ICli): Promise<IResponse> {
         let helpText = `${cli.getPackageInfo().description}
 
   Usage

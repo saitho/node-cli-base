@@ -1,12 +1,14 @@
 import {Cli, IResponse, IRequest, AbstractCommand, SuccessResponse} from "../src";
+import {TestCommand} from "../src/commands/TestCommand";
+import {Command} from "../src/core/Command";
 
 describe("Cli", () => {
     it("register command and run it", async () => {
         const cli = new Cli('typo3-extension-release');
-        cli.addCommand(new class extends AbstractCommand {
+        cli.addCommand(new class extends Command {
             commandName = 'test';
             commandDescription = 'just a test';
-            protected async process(request: IRequest, cli: Cli): Promise<IResponse> {
+            public async process(request: IRequest, cli: Cli): Promise<IResponse> {
                 return new SuccessResponse("Test successful");
             }
         });
@@ -18,6 +20,21 @@ describe("Cli", () => {
         console.log = jest.fn();
         await cli.run();
         expect(console.log).toHaveBeenCalledWith('Test successful');
+    });
+
+    it("register command with annotation and run it", async () => {
+        const cli = new Cli('typo3-extension-release');
+        cli.addCommand(new TestCommand());
+        process.argv = [
+            'node',
+            'typo3-extension-release test test1',
+            'test',
+            'test1',
+            'foobar'
+        ];
+        console.log = jest.fn();
+        await cli.run();
+        expect(console.log).toHaveBeenCalledWith('Response from func1 - arg1: foobar');
     });
 
     it("error when command is not found", async () => {

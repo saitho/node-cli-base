@@ -1,9 +1,20 @@
 import {ICli, ICommand, ICommandInfos, IRequest, IResponse} from "../interfaces";
+import * as console from "console";
+import {CommandOption} from "./Command";
 
 export abstract class AbstractCommand implements ICommand {
-    protected abstract commandName: string;
-    protected abstract commandDescription: string;
-    protected arguments = [];
+    protected commandName: string;
+    protected commandDescription: string;
+    protected arguments: CommandOption[] = [];
+
+    public addArgument(name: string, description: string, type: string, required = false): void
+    {
+        this.arguments.push({name: name, description: description, type: type, required: required})
+    }
+
+    public getArguments(): CommandOption[] {
+        return this.arguments
+    }
 
     getInfos(): ICommandInfos {
         return {
@@ -13,9 +24,6 @@ export abstract class AbstractCommand implements ICommand {
     }
 
     canHandleRequest(request: IRequest): boolean {
-        if (request.input.length == 0) {
-            return false;
-        }
         if (request.input[0] !== this.commandName) {
             return false;
         }
@@ -31,9 +39,9 @@ export abstract class AbstractCommand implements ICommand {
         return true;
     }
 
-    protected abstract process(request: IRequest, cli: ICli): Promise<IResponse>;
-
-    handleRequest(request: IRequest, cli: ICli): Promise<IResponse> {
-        return this.process(request, cli);
+    async handleRequest(request: IRequest, cli: ICli): Promise<IResponse> {
+        return new Promise<IResponse>((resolve, reject) => {
+            reject('Unable to handle request.')
+        })
     }
 }

@@ -6,17 +6,19 @@ import * as path from 'path';
 import {PackageInfo} from "../interfaces/ICli";
 import * as fs from "fs";
 import {EventEmitter} from "events";
+import {ICommandWithSubcommands} from "../interfaces/ICommand";
+import {Request} from "./Request";
 
 function findPackageJson(startDir: string|null): string|null {
     let dir = path.resolve(startDir || process.cwd());
     do {
-        const pkgfile = path.join(dir, "package.json");
+        const pkgFile = path.join(dir, "package.json");
 
-        if (!fs.existsSync(pkgfile)) {
+        if (!fs.existsSync(pkgFile)) {
             dir = path.join(dir, "..");
             continue;
         }
-        return pkgfile;
+        return pkgFile;
     } while (dir !== path.resolve(dir, ".."));
     return null;
 }
@@ -78,20 +80,17 @@ export class Cli implements ICli {
     }
 
     protected buildRequest(): IRequest {
-        const minimistoptions = buildOptions.default({
+        const minimistOptions = buildOptions.default({
             arguments: 'string',
             ...this.options
         });
         // @ts-ignore
-        const argv = yargsParser(process.argv.slice(2), minimistoptions);
+        const argv = yargsParser(process.argv.slice(2), minimistOptions);
 
         const input = argv._ as string[];
         delete argv._;
 
-        return {
-            input: input,
-            flags: argv
-        };
+        return new Request(input, argv);
     }
 
     async run() {
@@ -101,7 +100,28 @@ export class Cli implements ICli {
         process.title = pkg?.bin ? Object.keys(pkg.bin)[0] : pkg?.name;
 
         let response: IResponse;
-        const matchingCommands = this.commands.filter((command) => command.canHandleRequest(request));
+
+        const checkCommand = (cmd: ICommand|ICommand&ICommandWithSubcommands, request: IRequest, level = 0): boolean => {
+            let commandName = request.input[level]
+            if (cmd?.getInfos().name === commandName) {
+                if ('getSubcommands' in cmd && cmd.getSubcommands().size) {
+                    level++
+                    for (const c of cmd.getSubcommands()) {
+                        if (checkCommand(c[1], request, level)) {
+                            return true
+                        }
+                    }
+                }
+                return cmd.canHandleRequest(request);
+            }
+        }
+
+        const matchingCommands = this.commands.filter((command) => {
+            if (request.input.length == 0) {
+                return false;
+            }
+            return checkCommand(command, request)
+        });
         if (matchingCommands.length == 0) {
             response = new ErrorResponse(`The requested command "${request.input[0]}" was not found.`);
         } else if (matchingCommands.length > 1) {
@@ -117,7 +137,7 @@ export class Cli implements ICli {
         if (response instanceof ErrorResponse) {
             console.error('Command execution failed with the following error:\n\n' + response.message);
         } else {
-            console.log(response.message || 'Command execution finished successfully.');
+            console.log(response?.message || 'Command execution finished successfully.');
         }
     }
 }
