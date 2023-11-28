@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/saitho/node-cli-base/compare/v2.3.1...v2.3.2) (2023-11-28)
+
+
+### Bug Fixes
+
+* export Command ([9d4d996](https://github.com/saitho/node-cli-base/commit/9d4d996f6b506aeef3beb603a6e0191b021aa9f1))
+
 ## [2.3.1](https://github.com/saitho/node-cli-base/compare/v2.3.0...v2.3.1) (2023-11-28)
 
 
