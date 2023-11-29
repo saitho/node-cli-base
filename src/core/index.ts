@@ -4,4 +4,5 @@ export {AbstractCommand} from './AbstractCommand';
 export {Command} from './Command';
 export {SuccessResponse} from './SuccessResponse';
 export {ErrorResponse} from './ErrorResponse';
+export {Request} from './Request';
 export {name, command, description, argument} from './Decorators';
